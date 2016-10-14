@@ -1,0 +1,88 @@
+group = 'com.nablarch.workflow'
+version = '1.1.0'
+description = 'ワークフローライブラリ'
+
+buildscript {
+  repositories {
+    mavenLocal()
+    maven { url "${nablarchRepoReferenceUrl}/internal" }
+    jcenter()
+  }
+  dependencies {
+    classpath "com.nablarch.dev:nablarch-gradle-plugin:${nablarchGradlePluginVersion}"
+    classpath "net.saliman:gradle-cobertura-plugin:2.2.3"
+    classpath "io.spring.gradle:dependency-management-plugin:0.5.3.RELEASE"
+  }
+}
+
+ext {
+  encoding = 'utf-8'
+}
+
+repositories {
+  mavenLocal()
+  maven { url "${developLibUrl}" }
+  jcenter()
+  
+  // サードパーティ製ライブラリの格納リポジトリ
+    if(project.hasProperty('nablarchExtRepoUrl')) {
+       maven { url "${nablarchExtRepoUrl}" }
+  }
+}
+
+apply {
+  plugin 'com.nablarch.dev.nablarch-sonarqube'
+  plugin 'com.nablarch.dev.nablarch-build'
+  plugin 'com.nablarch.dev.nablarch-maven-deploy'
+  from 'https://github.com/nablarch/nablarch-gradle-plugin/blob/develop/scripts/cobertura/cobertura-0.0.1.gradle?raw=true'
+  plugin "io.spring.dependency-management"
+}
+
+
+dependencyManagement {
+  imports {
+    mavenBom 'com.nablarch.profile:nablarch-bom:5u6'
+  }
+  applyMavenExclusions false
+}
+
+[compileJava, compileTestJava].options*.encoding = encoding
+
+dependencies {
+  compile 'com.nablarch.framework:nablarch-core-jdbc'
+  compile 'com.nablarch.framework:nablarch-common-idgenerator-jdbc'
+
+  testCompile 'com.nablarch.framework:nablarch-core-repository'
+  testCompile 'com.nablarch.framework:nablarch-fw'
+  
+  testRuntime 'com.oracle:ojdbc6:11.1.0.7.0'
+  testCompile 'com.oracle:ucp:11.2.0.3.0'
+  
+  testCompile 'junit:junit:4.12'
+  testCompile 'org.hamcrest:hamcrest-all:1.3'
+
+}
+
+test {
+  ignoreFailures = true
+
+  minHeapSize = '64m'
+  maxHeapSize = '64m'
+
+  include '**/*Test.class'
+
+  testLogging {
+    events "failed", "skipped", "passed"
+    displayGranularity = 1
+  }
+
+  enableAssertions = false
+  systemProperty 'file.encoding', project.encoding
+  systemProperty 'java.security.egd', 'file:/dev/./urandom'
+
+  jvmArgs '-XX:-UseSplitVerifier'
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.13'
+}

@@ -1,0 +1,12 @@
+<FindBugsFilter>
+    <Match>
+      <Class name="please.change.me.sample.ss11AB.W11AB01Form" />
+      <Method name="getSearchConditionProps" params="" returns="java.lang.String[]" />
+      <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP" />
+    </Match>
+    <Match>
+      <Class name="please.change.me.sample.ss11AD.W11AD03Form" />
+      <Method name="getSearchConditionProps" params="" returns="java.lang.String[]" />
+      <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP" />
+    </Match>
+</FindBugsFilter>
