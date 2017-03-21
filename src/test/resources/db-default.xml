@@ -13,20 +13,22 @@
 
   <!-- ConnectionFactoryの設定 -->
   <component name="databaseConnectionFactory" class="nablarch.core.db.connection.BasicDbConnectionFactoryForDataSource">
-    <property name="dataSource">
-      <component class="nablarch.integration.workflow.testhelper.DataSourceFactory">
-        <property name="user" value="${db.user}" />
-        <property name="password" value="${db.password}" />
-        <property name="url" value="${db.url}" />
-      </component>
-    </property>
+    <property name="dataSource" ref="dataSource" />
     <property name="statementReuse" value="true" />
     <property name="dbAccessExceptionFactory">
       <component class="nablarch.core.db.connection.exception.BasicDbAccessExceptionFactory" />
     </property>
     <property name="dialect">
-      <component class="nablarch.core.db.dialect.OracleDialect" />
+      <component class="nablarch.core.db.dialect.H2Dialect" />
     </property>
+  </component>
+
+  <!-- データソース定義 -->
+  <component name="dataSource" class="nablarch.integration.workflow.testhelper.DataSourceFactory">
+    <property name="driverClassName" value="org.h2.Driver" />
+    <property name="user" value="${db.user}" />
+    <property name="password" value="${db.password}" />
+    <property name="url" value="${db.url}" />
   </component>
 
   <!-- TransactionFactoryの設定 -->
