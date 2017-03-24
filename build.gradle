@@ -51,7 +51,6 @@ dependencyManagement {
 dependencies {
   compile 'com.nablarch.framework:nablarch-core-jdbc'
   compile 'com.nablarch.framework:nablarch-common-idgenerator-jdbc'
-  runtime 'com.h2database:h2:1.4.191'
 
   testCompile 'com.nablarch.framework:nablarch-core-repository'
   testCompile 'com.nablarch.framework:nablarch-fw'
