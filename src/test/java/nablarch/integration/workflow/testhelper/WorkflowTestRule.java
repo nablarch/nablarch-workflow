@@ -68,7 +68,7 @@ public class WorkflowTestRule extends ExternalResource {
         }
 
         // 業務トランザクション用コネクションの登録
-        ConnectionFactory connectionFactory = SystemRepository.get("databaseConnectionFactory");
+        ConnectionFactory connectionFactory = SystemRepository.get("connectionFactory");
         TransactionManagerConnection connection = connectionFactory.getConnection(TransactionContext.DEFAULT_TRANSACTION_CONTEXT_KEY);
         DbConnectionContext.setConnection(connection);
 

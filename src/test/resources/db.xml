@@ -4,58 +4,7 @@
     xsi:schemaLocation="http://tis.co.jp/nablarch/component-configuration ../../main/resources/component-configuration.xsd">
 
   <!-- db接続情報設定ファイル -->
-  <config-file file="db.config" />
-
-  <!--  SimpleDbTransactionManager  -->
-  <component name="tran" class="nablarch.core.db.transaction.SimpleDbTransactionManager">
-    <property name="dbTransactionName" value="test" />
-  </component>
-
-  <!-- ConnectionFactoryの設定 -->
-  <component name="databaseConnectionFactory" class="nablarch.core.db.connection.BasicDbConnectionFactoryForDataSource">
-    <property name="dataSource">
-      <component class="nablarch.integration.workflow.testhelper.DataSourceFactory">
-        <property name="user" value="${db.user}" />
-        <property name="password" value="${db.password}" />
-        <property name="url" value="${db.url}" />
-      </component>
-    </property>
-    <property name="statementReuse" value="true" />
-    <property name="dbAccessExceptionFactory">
-      <component class="nablarch.core.db.connection.exception.BasicDbAccessExceptionFactory" />
-    </property>
-    <property name="dialect">
-      <component class="nablarch.core.db.dialect.OracleDialect" />
-    </property>
-  </component>
-
-  <!-- TransactionFactoryの設定 -->
-  <component class="nablarch.core.db.transaction.JdbcTransactionFactory">
-    <property name="isolationLevel" value="READ_COMMITTED" />
-  </component>
-
-  <!-- ステートメントの設定 -->
-  <component name="statementFactory"
-      class="nablarch.core.db.statement.BasicStatementFactory">
-    <property name="fetchSize" value="50" />
-    <property name="queryTimeout" value="600" />
-    <property name="objectFieldCache" ref="statementValueObjectCache" />
-    <property name="updatePreHookObjectHandlerList"
-        ref="fieldAnnotationHandler" />
-    <property name="sqlParameterParserFactory">
-      <component
-          class="nablarch.core.db.statement.BasicSqlParameterParserFactory" />
-    </property>
-    <property name="sqlStatementExceptionFactory" ref="dbExceptionFactory" />
-    <property name="sqlLoader" ref="sqlLoader">
-    </property>
-  </component>
-
-  <!-- SQLLoaderの設定 -->
-  <component name="sqlLoader" class="nablarch.core.db.statement.BasicSqlLoader">
-    <property name="fileEncoding" value="utf-8" />
-    <property name="extension" value="sql" />
-  </component>
+  <import file="db-default.xml" />
 
   <!-- オブジェクトの情報のキャッシュ設定 -->
   <component name="statementValueObjectCache"
@@ -66,8 +15,6 @@
     </property>
     <property name="loadOnStartup" value="false" />
   </component>
-
-
 
   <!-- ユーザID設定ハンドラ -->
   <component name="userIdAnnotationHandler"

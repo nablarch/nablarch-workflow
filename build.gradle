@@ -54,10 +54,7 @@ dependencies {
 
   testCompile 'com.nablarch.framework:nablarch-core-repository'
   testCompile 'com.nablarch.framework:nablarch-fw'
-  
-  testRuntime 'com.oracle:ojdbc6:11.1.0.7.0'
-  testCompile 'com.oracle:ucp:11.2.0.3.0'
-  
+
   testCompile 'junit:junit:4.12'
   testCompile 'org.hamcrest:hamcrest-all:1.3'
 
