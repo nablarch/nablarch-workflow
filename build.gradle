@@ -61,7 +61,6 @@ dependencies {
 }
 
 test {
-  ignoreFailures = true
 
   minHeapSize = '64m'
   maxHeapSize = '64m'
